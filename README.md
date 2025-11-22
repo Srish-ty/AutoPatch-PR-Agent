@@ -124,10 +124,12 @@ auto-patch-agent/
 ---
 
 ## ⚙️ Setup
+1. fork the repo: https://github.com/Srish-ty/AutoPatch-PR-Agent
+2. clone your fork
 
 ```bash
-git clone https://github.com/<your-username>/auto-patch-agent
-cd auto-patch-agent
+git clone https://github.com/<your-username>/autopatch-pr-agent
+cd AutoPatch-PR-Agent
 pip install -r requirements.txt
 python main.py
 ```

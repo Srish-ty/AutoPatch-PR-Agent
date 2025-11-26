@@ -1,0 +1,10 @@
+auto-patch-pr-agent/
+├── main.py                 # Core agent script (exported from notebook)
+├── requirements.txt        # Dependencies
+├── Dockerfile              # For deployment (bonus)
+├── README.md               # Detailed documentation
+├── .gitignore              # Ignore temp files
+├── LICENSE                 # Open-source license
+├── architecture.png        # Diagram image (upload or generate)
+└── demo/                   # Optional folder for screenshots/videos
+    └── demo_screenshot.png

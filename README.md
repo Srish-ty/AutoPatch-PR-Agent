@@ -1,171 +1,219 @@
-# AutoPatch PR Agent
+<h1 align="center"> 🤖 AutoPatch PR Agent</h1>
+<p align="center"><em>Agents Intensive - Capstone Project By Kaggle</em></p>
 
-AutoPatch PR Agent is an AI-powered multi-agent system that automatically scans a repository, detects code style issues, fixes them, and creates a pull request with the corrected code. It helps developers and open-source contributors save time by automating repetitive cleanup tasks like formatting, unused imports, naming issues, and minor code smells.
+<p align="center">
+   
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange?style=for-the-badge&logo=jupyter&logoColor=white)](https://jupyter.org/)
+[![GitHub](https://img.shields.io/badge/GitHub-API-black?style=for-the-badge&logo=github&logoColor=white)](https://github.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![Contributions Welcome](https://img.shields.io/badge/Contributions-Welcome-brightgreen?style=for-the-badge)](https://github.com/Srish-ty/AutoPatch-PR-Agent/blob/main/CONTRIBUTING.md)
 
-The project is built for the Kaggle 5-Day AI Agents Intensive Capstone and demonstrates the use of multi-agent workflows, MCP tools, GitHub API integration, and LLM-powered code transformations.
+</p>
 
----
-
-## 🚀 Features
-
-- Automatic repo scanning  
-- Linting with Ruff / ESLint / Prettier  
-- AI-generated code patches  
-- Automatic file rewriting  
-- Branch creation + commit  
-- Pull Request creation using GitHub token  
-- Multi-agent workflow  
-- MCP tool integration  
-- Basic memory for project style preferences  
-- Clean logs for observability  
+> **Revolutionize your development workflow with an AI-powered agent that autonomously patches code issues and seamlessly submits Pull Requests to GitHub. Harness the power of Large Language Models (LLMs) to transform bug fixes into effortless automation.**
 
 ---
 
-## 🧠 How It Works
+<p align="center"><img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3YmEwZWJzdjJxY3NkbXg0a2t1NTZidms4MTJmaGZiZ3EwczBldXc2cCZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/78XCFBGOlS6keY1Bil/giphy.gif" alt="Descriptive Alt Text" width="600"></p>
 
-1. **User inputs** a GitHub repo URL, base branch, and a personal access token (PAT).  
-2. Repo is **cloned locally**.  
-3. **Repo Scanner Agent** detects which files need cleanup.  
-4. **Style Analysis Agent** runs linters and collects issues.  
-5. **Fix Generator Agent** uses LLM + lint results to rewrite the files cleanly.  
-6. **PR Creator Agent**:
-   - creates a new branch  
-   - commits changes  
-   - pushes the branch  
-   - opens a pull request automatically  
-7. User gets a **PR link + summary of fixes**.
+## 📖 Overview
+
+Welcome to **AutoPatch PR Agent**, an innovative tool engineered to bridge the gap between issue detection and resolution in software development. By integrating cutting-edge AI capabilities with GitHub's robust API, this agent analyzes codebases, generates precise patches, and automates the entire Pull Request (PR) lifecycle—from branching and committing to publishing—ensuring minimal human intervention.
+
+This repository hosts the core implementation, including the main notebook, utility scripts, and documentation to get you started quickly.
 
 ---
 
-## 🏗 Architecture
+## ✨ Key Features
 
-```
-User Input → Agent Orchestrator
-                |
-        ┌───────┼────────────────────────┐
-        ▼       ▼                        ▼
-Repo Scanner   Style Analysis        Fix Generator
-   Agent          Agent                 Agent
-        \          |                    /
-         \         |                   /
-          ▼        ▼                  ▼
-              MCP Tools Layer
- (repo_tool, lint_tool, git_tool, github_tool)
-                     |
-                     ▼
-               GitHub API (PR creation)
-```
+* **🤖 Advanced AI Patch Generation**: Utilizes state-of-the-art LLMs (e.g., Google Gemini, OpenAI GPT-4) to comprehend intricate code structures, dependencies, and context. Generates syntactically accurate, tested patches with minimal hallucinations.
+* **🚀 Fully Automated PR Workflow**: End-to-end automation covering git operations—branch creation, patch application, commit staging, remote pushing, and PR submission—with intelligent conflict resolution and rollback mechanisms.
+* **🛠️ Extensible Tool Integration**: Supports function calling for file manipulation, API interactions, and custom tools (e.g., linting, testing). Easily extendable via plugins for specialized tasks like database migrations or cloud deployments.
+* **📝 Comprehensive Logging & Transparency**: Real-time, verbose logging with progress indicators, error diagnostics, and direct links to created PRs. Includes audit trails for compliance and debugging.
+* **🔒 Security-First Design**: Implements token-based authentication, rate limiting, and sandboxed execution to prevent unauthorized access or malicious code injection.
+* **🌐 Multi-Provider LLM Support**: Flexible configuration for various AI models, with fallback options and cost optimization strategies.
+* **📊 Analytics & Insights**: Optional integration with monitoring tools to track patch success rates, time-to-resolution, and AI model performance metrics.
 
 ---
 
-## 🔁 Workflow
+## 🔒 Safety & Security
 
-1. Enter repo URL + token  
-2. Clone repo  
-3. Scan files  
-4. Run linters  
-5. Generate patches  
-6. Apply fixes  
-7. Create branch  
-8. Commit + push  
-9. Open PR  
-10. Output PR link  
+AutoPatch PR Agent prioritizes security to ensure safe and responsible AI-assisted development. We conduct regular audits and encourage community reporting of vulnerabilities.
 
----
+<details>
+<summary><b>Click to expand safety findings</b></summary>
 
-## 📦 Project Structure
+- **Potential Risks**: As with any AI tool, there is a risk of generating incorrect or insecure code patches. Always review PRs before merging.
+- **Mitigations**: The agent includes built-in validation steps, such as running tests post-patch and limiting scope to specified files.
+- **Best Practices**: Use in controlled environments, monitor API usage, and avoid applying patches to production code without human oversight.
+- **Reporting**: If you discover security issues, please report them via [GitHub Issues](https://github.com/Srish-ty/AutoPatch-PR-Agent/issues) with the "security" label.
 
-```
-auto-patch-agent/
-│
-├── agents/
-│   ├── orchestrator.py
-│   ├── repo_scanner.py
-│   ├── style_analysis.py
-│   ├── fix_generator.py
-│   └── pr_creator.py
-│
-├── mcp_server/
-│   ├── server.py
-│   ├── repo_tool.py
-│   ├── lint_tool.py
-│   ├── git_tool.py
-│   └── github_tool.py
-│
-├── interface/
-│   ├── cli.py
-│   └── ui.py (optional)
-│
-├── core/
-│   ├── memory.py
-│   ├── config.py
-│   └── utils.py
-│
-├── data/
-│   └── memory.json
-│
-├── README.md
-├── requirements.txt
-└── main.py
-```
+</details>
 
 ---
 
-## 🛠 Tech Stack
+## ⚙️ How It Works
 
-- Python  
-- MCP server  
-- LLM (Gemini or OpenAI)  
-- GitHub REST API  
-- Ruff, ESLint, Prettier  
-- Git CLI  
-- SQLite/JSON for memory  
+The AutoPatch PR Agent operates through a sophisticated pipeline designed for reliability and efficiency:
+
+<details>
+<summary><b>Click to expand safety findings</b></summary>
+
+1. **Initialization & Authentication**:
+   - Establishes secure connections to the target GitHub repository using a Personal Access Token (PAT).
+   - Initializes the chosen LLM with API keys and model parameters (e.g., temperature, max tokens).
+
+2. **Task Analysis & Planning**:
+   - Parses the input task or issue (e.g., from a GitHub Issue, user prompt, or CI trigger).
+   - Leverages the LLM to analyze the codebase via repository scanning, identifying relevant files, functions, and potential conflicts.
+
+3. **Patch Generation**:
+   - The AI crafts targeted code modifications, ensuring adherence to coding standards, best practices, and existing project conventions.
+   - Incorporates unit tests or validation steps if configured, using tools like pytest or custom scripts.
+
+4. **Execution & Publishing**:
+   - Creates a feature branch with a descriptive name (e.g., `auto-patch/fix-issue-123`).
+   - Applies patches atomically, with automatic staging and committing.
+   - Pushes changes to the remote repository.
+   - Generates a PR with a detailed title, body (including change summaries and AI-generated descriptions), and optional reviewers/assignees.
+   - Handles edge cases like merge conflicts by retrying with refined patches or escalating to human review.
+
+5. **Post-Processing & Feedback**:
+   - Logs the outcome, including PR URLs and any warnings.
+   - Optionally triggers downstream actions, such as CI builds or notifications via webhooks.
+
+This process is encapsulated in the main notebook, but can be adapted for headless execution in production environments.
+
+</details>
+
+## 🚀 Getting Started
 
 ---
 
-## ⚙️ Setup
-1. fork the repo: https://github.com/Srish-ty/AutoPatch-PR-Agent
-2. clone your fork
+### Prerequisites
+
+Before diving in, ensure you have the following:
+
+- **Python 3.10+**: Required for compatibility with modern LLM libraries and async operations.
+- **Jupyter Notebook** or **Google Colab**: For interactive execution and prototyping. Alternatively, use VS Code with Jupyter extensions for a richer IDE experience.
+- **GitHub Account & PAT**: A Personal Access Token with `repo` and `pull_requests` scopes. Generate one [here](https://github.com/settings/tokens).
+- **LLM API Access**: An API key for your preferred provider:
+  - Google Gemini: Obtain from [Google AI Studio](https://makersuite.google.com/app/apikey).
+  - OpenAI: Get from [OpenAI API](https://platform.openai.com/api-keys).
+- **Git**: Installed and configured on your system for local repository operations.
+- **Optional Tools**: Docker for containerized runs, or IDEs like PyCharm for advanced debugging.
+
+---
+
+### Installation
+
+<details>
+<summary><b>Click to expand safety findings</b></summary>
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/Srish-ty/AutoPatch-PR-Agent.git
+   cd AutoPatch-PR-Agent
+2. Set Up a Virtual Environment (Recommended):
+   ```bash
+   python -m venv autopatch-env
+   source autopatch-env/bin/activate  # On Windows: autopatch-env\Scripts\activate
+3. Install Dependencies:
+   ```bash
+   pip install -r requirements.txt
+
+---
+
+### Key packages include:
+
+- `gitpython`: For git operations.
+- `requests`: For API interactions.
+- `google-generativeai or openai`: For LLM integration.
+- `jupyter`: For notebook execution.
+- `Additional utilities`: pytest, black (for code formatting), and loguru (for advanced logging).
+
+4. Configure Environment Variables: Create a .env file or set variables directly:
 
 ```bash
-git clone https://github.com/<your-username>/autopatch-pr-agent
-cd AutoPatch-PR-Agent
-pip install -r requirements.txt
-python main.py
+export GITHUB_TOKEN="your_github_token_here"
+export GEMINI_API_KEY="your_gemini_api_key_here"  # Or OPENAI_API_KEY for OpenAI
+export REPO_OWNER="target_repo_owner"
+export REPO_NAME="target_repo_name"
+```
+For security, use a tool like python-dotenv to load from .env.
+
+5. Verify Setup: Run a quick test:
+
+```bash
+python -c "import git, requests, google.generativeai; print('Setup complete!')"
 ```
 
+</details>
+
+## 💻 Usage
+
+Running the Agent
+- Launch the Notebook: Open auto-patch-pr-agent.ipynb in Jupyter or Colab.
+
+- Configure Parameters: In the notebook's initialization cells, input or load:
+   - Target repository details.
+   - Task description (e.g., "Fix the null pointer exception in user authentication").
+   - LLM settings (model, temperature, etc.).
+
+- Execute the Main Loop: Run the cells sequentially. The final cell typically invokes await main() to start the process.
+
+## Example Execution Output
+A successful run might produce:
+
+<details>
+<summary><b>Click to expand safety findings</b></summary>
+   
+```text
+[INFO] Initializing AutoPatch PR Agent...
+[INFO] Analyzing codebase for task: 'Implement dark mode toggle'
+[INFO] Generating patch using Gemini-1.5-Pro...
+[INFO] Applying changes to files: ['src/components/Header.js', 'src/styles/theme.css']
+[INFO] Creating branch: auto-patch/dark-mode-toggle
+[INFO] Committing changes...
+[INFO] Pushing to remote...
+[INFO] Creating PR...
+[SUCCESS] PR created successfully! View at: https://github.com/example/repo/pull/42
+[INFO] PR Details: Title - "AutoPatch: Implement Dark Mode Toggle", Body - "Generated by AI: Added toggle button and CSS variables for seamless theme switching."
+```
+</details>
+
+# Troubleshooting
+- API Rate Limits: Monitor usage and implement retries with exponential backoff.
+- Merge Conflicts: The agent attempts auto-resolution; otherwise, it logs for manual intervention.
+- LLM Errors: Switch models or adjust prompts in prompts.py.
+
+## 🤝 Contributing
+We thrive on community contributions! Whether it's bug fixes, feature requests, or documentation improvements, your input is invaluable.
+
+- Fork the Repository: Click the "Fork" button on GitHub.
+- Create a Feature Branch: git checkout -b feature/YourAmazingFeature.
+- Make Changes: Follow our Contributing Guidelines for coding standards and testing.
+- Commit & Push: git commit -m 'Add YourAmazingFeature' and git push origin feature/YourAmazingFeature.
+- Submit a PR: Open a Pull Request with a clear description. We'll review promptly!
+For major changes, start a discussion in Issues.
+
 ---
+👥 Contributors
+This project is a collaborative effort by:
 
-## 🔧 Usage
-
-- Enter repo URL  
-- Enter GitHub token  
-- Choose base branch  
-- Agent scans → fixes → opens a PR  
-- Copy your pull request link  
-
----
-
-## 📌 Limitations
-
-- Cannot merge PR automatically  
-- User must provide a GitHub token  
-- Works best on small-medium repos  
-- AI fixes are safe but should be reviewed manually  
+- Kanakbaghel
+- Srish-ty
+- dwipalshrirao
+  
+We welcome new contributors—see the Contributing section above to get involved!
 
 ---
-
-## 🎯 Future Enhancements
-
-- Security linting  
-- Automatic PR review comments  
-- Full CI integration  
-- Patch confidence scoring  
-- Deeper semantic refactoring  
+## Acknowledgments
+- Inspired by advancements in AI-driven development tools.
+- Thanks to the open-source community for libraries like GitPython and the GitHub API.
+- Special shoutout to our contributors (Kanakbaghel, Srish-ty, dwipalshrirao) and early adopters for feedback and testing.
 
 ---
-
-## ✨ About
-
-Built by Srishty, Kanak, and Dwipal as part of the Kaggle Agents Intensive Capstone Project 2025.  
-This tool aims to simplify open-source contributions by reducing the effort needed to prepare clean, patch-ready pull requests.
+> _" Let’s learn, grow, and innovate — together! "_
+<p align="center"><em>Crafted with ♥ by <strong>Our Team</strong>

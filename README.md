@@ -19,21 +19,20 @@
 
 ## 📖 Overview
 
-Welcome to **AutoPatch PR Agent**, an innovative tool engineered to bridge the gap between issue detection and resolution in software development. By integrating cutting-edge AI capabilities with GitHub's robust API, this agent analyzes codebases, generates precise patches, and automates the entire Pull Request (PR) lifecycle—from branching and committing to publishing—ensuring minimal human intervention.
-
-This repository hosts the core implementation, including the main notebook, utility scripts, and documentation to get you started quickly.
+Welcome to AutoPatch PR Agent, like a helpful robot team that uses AI to make coding easier. It checks code for mistakes, fixes them, and shares the changes online. We built it using Google's tools and smart AI to show how AI can help with everyday tasks.We are using human-in-the-loop logic to ask the user if they want to do fixes once we display all the changes, ensuring transparency and control. The Auto Patch PR Agent is a modular, multi-agent AI system designed to streamline software development workflows. Leveraging Google's ADK and Gemini LLM, it intelligently handles end-to-end code quality tasks—from repository cloning to PR submission. This project demonstrates advanced agent concepts, making it a standout example of AI-driven automation.
 
 ---
 
 ## ✨ Key Features
 
-* **🤖 Advanced AI Patch Generation**: Utilizes state-of-the-art LLMs (e.g., Google Gemini, OpenAI GPT-4) to comprehend intricate code structures, dependencies, and context. Generates syntactically accurate, tested patches with minimal hallucinations.
-* **🚀 Fully Automated PR Workflow**: End-to-end automation covering git operations—branch creation, patch application, commit staging, remote pushing, and PR submission—with intelligent conflict resolution and rollback mechanisms.
-* **🛠️ Extensible Tool Integration**: Supports function calling for file manipulation, API interactions, and custom tools (e.g., linting, testing). Easily extendable via plugins for specialized tasks like database migrations or cloud deployments.
-* **📝 Comprehensive Logging & Transparency**: Real-time, verbose logging with progress indicators, error diagnostics, and direct links to created PRs. Includes audit trails for compliance and debugging.
-* **🔒 Security-First Design**: Implements token-based authentication, rate limiting, and sandboxed execution to prevent unauthorized access or malicious code injection.
-* **🌐 Multi-Provider LLM Support**: Flexible configuration for various AI models, with fallback options and cost optimization strategies.
-* **📊 Analytics & Insights**: Optional integration with monitoring tools to track patch success rates, time-to-resolution, and AI model performance metrics.
+- **Repository Cloning**: Supports cloning public or private GitHub repos with optional branch checkout and token authentication.
+- **Linting**: Uses Ruff to scan Python files for issues (e.g., style, errors).
+- **Issue Tracking**: Stores linter issues in an in-memory artifact store with reference IDs.
+- **Automated Fixes**: AI-driven fixes for issues, with safeguards to avoid problematic changes.
+- **PR Creation**: Automatically creates a new branch, commits changes, pushes to GitHub, and opens a PR.
+- **Observability**: Includes logging for tracing and metrics.
+- **Scalability**: Built with ADK for multi-agent workflows, supporting async operations.
+- **Memory and Sessions**: In-memory session service and memory bank for adaptive learning.
 
 ---
 
@@ -60,30 +59,19 @@ The AutoPatch PR Agent operates through a sophisticated pipeline designed for re
 <details>
 <summary><b>Click to expand safety findings</b></summary>
 
-1. **Initialization & Authentication**:
-   - Establishes secure connections to the target GitHub repository using a Personal Access Token (PAT).
-   - Initializes the chosen LLM with API keys and model parameters (e.g., temperature, max tokens).
-
-2. **Task Analysis & Planning**:
-   - Parses the input task or issue (e.g., from a GitHub Issue, user prompt, or CI trigger).
-   - Leverages the LLM to analyze the codebase via repository scanning, identifying relevant files, functions, and potential conflicts.
-
-3. **Patch Generation**:
-   - The AI crafts targeted code modifications, ensuring adherence to coding standards, best practices, and existing project conventions.
-   - Incorporates unit tests or validation steps if configured, using tools like pytest or custom scripts.
-
-4. **Execution & Publishing**:
-   - Creates a feature branch with a descriptive name (e.g., `auto-patch/fix-issue-123`).
-   - Applies patches atomically, with automatic staging and committing.
-   - Pushes changes to the remote repository.
-   - Generates a PR with a detailed title, body (including change summaries and AI-generated descriptions), and optional reviewers/assignees.
-   - Handles edge cases like merge conflicts by retrying with refined patches or escalating to human review.
-
-5. **Post-Processing & Feedback**:
-   - Logs the outcome, including PR URLs and any warnings.
-   - Optionally triggers downstream actions, such as CI builds or notifications via webhooks.
-
-This process is encapsulated in the main notebook, but can be adapted for headless execution in production environments.
+- **Setup**: Loads environment variables, configures logging, and initializes ADK components.
+- **Agents**:
+   - **RepoCloner**: Uses clone_repository to clone and optionally checkout a branch.
+   - **Analyzer**: Runs run_linter_and_store to lint Python files and store issues in ARTIFACT_STORE.
+   - **Fixer**: Processes issues, reads file content, and applies fixes using write_file. Outputs status via file_fixing_status schema.
+   - **Publisher**: Uses create_github_pr to create a branch, commit, push, and open a PR.
+- **Async Runner**: Manages agent interactions asynchronously with session persistence.
+- **Utilities**:
+   - **scan_files**: Discovers Python files.
+   - **fetch_issue_batch**: Retrieves issues in batches.
+   - **display_artifact_changes**: Prints a summary of changes.
+   - Error handling for cloning, pushing, and API calls.
+- **Memory**: ARTIFACT_STORE for issues, MEMORY_BANK for learning (e.g., storing last issues).
 
 </details>
 
@@ -102,7 +90,6 @@ Before diving in, ensure you have the following:
   - Google Gemini: Obtain from [Google AI Studio](https://makersuite.google.com/app/apikey).
   - OpenAI: Get from [OpenAI API](https://platform.openai.com/api-keys).
 - **Git**: Installed and configured on your system for local repository operations.
-- **Optional Tools**: Docker for containerized runs, or IDEs like PyCharm for advanced debugging.
 
 ---
 
@@ -183,19 +170,16 @@ A successful run might produce:
 ```
 </details>
 
-# Troubleshooting
-- API Rate Limits: Monitor usage and implement retries with exponential backoff.
-- Merge Conflicts: The agent attempts auto-resolution; otherwise, it logs for manual intervention.
-- LLM Errors: Switch models or adjust prompts in prompts.py.
+---
 
 ## 🤝 Contributing
 We thrive on community contributions! Whether it's bug fixes, feature requests, or documentation improvements, your input is invaluable.
 
-- Fork the Repository: Click the "Fork" button on GitHub.
-- Create a Feature Branch: git checkout -b feature/YourAmazingFeature.
-- Make Changes: Follow our Contributing Guidelines for coding standards and testing.
-- Commit & Push: git commit -m 'Add YourAmazingFeature' and git push origin feature/YourAmazingFeature.
-- Submit a PR: Open a Pull Request with a clear description. We'll review promptly!
+- **Fork the Repository**: Click the "Fork" button on GitHub.
+- **Create a Feature Branch**: git checkout -b feature/YourAmazingFeature.
+- **Make Changes**: Follow our Contributing Guidelines for coding standards and testing.
+- **Commit & Push**: git commit -m 'Add YourAmazingFeature' and git push origin feature/YourAmazingFeature.
+- **Submit a PR**: Open a Pull Request with a clear description. We'll review promptly!
 For major changes, start a discussion in Issues.
 
 ---

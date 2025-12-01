@@ -402,4 +402,3 @@ async def main():
     print("Publish result:", pub_resp)
 
 await main()
-

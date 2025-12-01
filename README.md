@@ -1,5 +1,7 @@
 # AutoPatch PR Agent
 
+![1764223059010](https://github.com/user-attachments/assets/c6ac1fb1-bc9f-4aa7-a40f-03de8c13df1f)
+
 AutoPatch PR Agent is an AI-powered multi-agent system that automatically scans a repository, detects code style issues, fixes them, and creates a pull request with the corrected code. It helps developers and open-source contributors save time by automating repetitive cleanup tasks like formatting, unused imports, naming issues, and minor code smells.
 
 The project is built for the Kaggle 5-Day AI Agents Intensive Capstone and demonstrates the use of multi-agent workflows, MCP tools, GitHub API integration, and LLM-powered code transformations.
@@ -136,6 +138,9 @@ python main.py
 
 ---
 
+![image 1764329210004](https://github.com/user-attachments/assets/a261e100-2cbb-477f-89a7-4827eff0389d)
+
+
 ## 🔧 Usage
 
 - Enter repo URL  
@@ -169,3 +174,6 @@ python main.py
 
 Built by Srishty, Kanak, and Dwipal as part of the Kaggle Agents Intensive Capstone Project 2025.  
 This tool aims to simplify open-source contributions by reducing the effort needed to prepare clean, patch-ready pull requests.
+
+<img width="1024" height="1024" alt="Generated_Image_November_27_2025_-_11_43AM" src="https://github.com/user-attachments/assets/2417585d-8b32-483c-a470-7874d5a3ffcf" />
+
